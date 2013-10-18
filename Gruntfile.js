@@ -14,8 +14,8 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['test/spec/**/*.js', 'src/**/*.js', 'test/SpecRunner.js'],
-      tasks: 'exec'
+      files: ['test/spec/**/*.js', 'src/**/*.coffee', 'test/SpecRunner.js'],
+      tasks: ['exec', 'coffee']
     },
 
     coffee: {
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 
     exec: {
       jasmine: {
-        command: 'phantomjs test/lib/run-jasmine.js http://localhost:8000/test',
+        command: 'phantomjs test/lib/run-jasmine.js http://localhost:8000/jasmine.html',
         stdout: true
       }
     }
