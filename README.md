@@ -40,6 +40,8 @@ Installation
   bower install responderjs
 ```
 
+License
+-------
 
 The MIT License (MIT)
 
