@@ -14,14 +14,21 @@ class @ResponsiveHandler
 
   constructor: (@config) ->
     @action_queue = []
+    @waiting_stack = []
     for name, breakpoint of config
       do (breakpoint) =>
         this[name] = (action) ->
-            @action_queue.push
-              min_size: parse_min_size(breakpoint)
-              max_size: parse_max_size(breakpoint)
-              lambda: action
-        this[name]
+            if arguments.length == 0
+              @waiting_stack.push {name: name, breakpoint: breakpoint}
+            else
+              @waiting_stack.push {name: name, breakpoint: breakpoint}
+              for waiting in @waiting_stack
+                @action_queue.push
+                  min_size: parse_min_size(waiting.breakpoint)
+                  max_size: parse_max_size(waiting.breakpoint)
+                  lambda: action
+              @waiting_stack = []
+            return this
 
   invokeActionsForScreenSize: (size) ->
     for action in @action_queue

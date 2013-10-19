@@ -40,5 +40,25 @@ define(['bin/responsive_handler'], function(ResponsiveHandler) {
       expect(tablet.callCount).toBe(0)
       expect(desktop.callCount).toBe(0)
     });
+
+    it("sets an action to happen on more than one resolution by chaining", function() {
+      var responsive = new window.ResponsiveHandler(
+        {
+          mobile:  "0px-700px",
+          tablet:  "700px-1000px",
+          desktop: "1000px-max"
+        }
+      );
+
+      mobileAndDesktop = jasmine.createSpy('mobile')
+      tablet = jasmine.createSpy('tablet')
+
+      responsive.mobile().desktop(mobileAndDesktop);
+
+      responsive.invokeActionsForScreenSize(1200);
+      responsive.invokeActionsForScreenSize(300);
+
+      expect(mobileAndDesktop.callCount).toBe(2);
+    });
   });
 });
