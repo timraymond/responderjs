@@ -21,7 +21,8 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
-          'bin/responsive_handler.js': 'src/responsive_handler.coffee'
+          'bin/responsive_handler.js': 'src/responsive_handler.coffee',
+          'bin/ngresponsive.js': 'src/ngresponsive.coffee'
         }
       }
     },

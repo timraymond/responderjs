@@ -1,0 +1,63 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <title>Test</title>
+  <script src="../bin/responsive_handler.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../bower_components/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+  var responsive = new ResponsiveHandler({
+    mobile: "0px-400px",
+    tablet: "400px-600px",
+    retina: "600px-1200px",
+    desktop: "1200px-max"
+  });
+
+  responsive.retina(function() {
+    $("#colorbox").css("background", "purple")
+    .html("Retina!");
+  });
+
+  responsive.mobile(function() {
+    $("#colorbox").css("background", "red")
+    .html("Mobile!");
+  });
+
+  responsive.tablet(function() {
+    $("#colorbox").css("background", "blue").html("Tablet!");
+  });
+
+  responsive.desktop(function() {
+    $("#colorbox").css("background", "green").html("Desktop!");
+  });
+
+  responsive.retina().mobile(function() {
+    $("#colorbox").append("<br><h3>Retina & Mobile</h3>");
+  });
+
+  $(document).ready(function() {
+    responsive.invokeActionsForScreenSize(document.documentElement.clientWidth);
+  });
+
+  $(window).resize(function() {
+    responsive.invokeActionsForScreenSize(document.documentElement.clientWidth);
+  });
+  </script>
+  <style type="text/css" media="all">
+  #colorbox {
+    width: 200px;
+    height: 200px;
+  }
+
+  #colorbox {
+    text-align: center;
+    color: #fff;
+    font: 30px Helvetica;
+    padding-top: 85px;
+  }
+  </style>
+</head>
+<body>
+  <div id="colorbox"></div>
+</body>
+</html>

@@ -30,7 +30,13 @@ class @ResponsiveHandler
               @waiting_stack = []
             return this
 
+  setInjector: (injector) ->
+    @injector = injector
+
   invokeActionsForScreenSize: (size) ->
     for action in @action_queue
       if action.min_size < size && size <= action.max_size
-        action.lambda.apply(document)
+        if @injector
+          @injector.invoke(action.lambda)
+        else
+          action.lambda.apply(document)
