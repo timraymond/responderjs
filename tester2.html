@@ -3,10 +3,9 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
   <title>Test</title>
-  <script src="../bin/responsive_handler.js" type="text/javascript" charset="utf-8"></script>
   <script src="../bower_components/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="../bower_components/angular/angular.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../bin/ngresponsive.js" type="text/javascript" charset="utf-8"></script>
+  <script src="ng-responsive.min.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
   angular.module("test", ["ngResponsive"])
     .config(function($responsiveProvider) {
@@ -19,10 +18,12 @@
     })
     .controller("testController", function($responsive, $scope) {
         $responsive.retina(function() {
+          $scope.flag = null
           $scope.items = ["iphone5"]
         });
 
         $responsive.mobile(function() {
+          $scope.flag = null
           $scope.items = ["iphone", "galaxy", "droid"]
         });
 
@@ -32,6 +33,10 @@
 
         $responsive.desktop(function() {
           $scope.items = ["pc", "mac"]
+        });
+
+        $responsive.tablet().desktop(function() {
+          $scope.flag = "tablet and desktop";
         });
     });
   </script>
@@ -52,6 +57,7 @@
 <body>
   <div ng-app="test">
     <div ng-controller="testController">
+      <h1>{{flag}}</h1>
       <ul>
         <li ng-repeat="item in items">{{item}}</li>
       </ul>

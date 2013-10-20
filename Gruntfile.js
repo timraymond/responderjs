@@ -27,6 +27,15 @@ module.exports = function(grunt) {
       }
     },
 
+    uglify: {
+      responderjs: {
+        files: {
+          'responder.min.js': ['bin/responsive_handler.js'],
+          'ng-responsive.min.js': ['bin/responsive_handler.js', 'bin/ngresponsive.js']
+        }
+      }
+    },
+
     exec: {
       jasmine: {
         command: 'phantomjs test/lib/run-jasmine.js http://localhost:8000/jasmine.html',
@@ -40,6 +49,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('default', ['connect:test', 'exec', 'watch']);
 
